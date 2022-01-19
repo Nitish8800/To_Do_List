@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      th,
+      td {
+        border: 1px solid black;
+        padding: 10px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Todo List</h1>
+    <form id="myForm">
+      <label>Name</label>
+      <input id="name" type="text" placeholder="Enter Todo" />
+      <label>Quantity</label>
+      <input id="qty" type="number" placeholder="enter qty" />
+      <label>Priority</label>
+      <select id="priority">
+        <option value="">--</option>
+        <option value="High">High</option>
+        <option value="Low">Low</option>
+        <option value="Medium">Medium</option>
+      </select>
+      <input type="submit" value="Submit" />
+    </form>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Quantity</th>
+          <th>Priority</th>
+          <th>Delete</th>
+        </tr>
+      </thead>
+      <tbody id="niku"></tbody>
+    </table>
+  </body>
+</html>
+
+<script>
+  document.querySelector("form").addEventListener("submit", addItem);
+
+  function addItem(event) {
+    console.log("here");
+    event.preventDefault();
+    var name = document.getElementById("name").value;
+    var qty = document.getElementById("qty").value;
+    var priority = document.getElementById("priority").value;
+
+    // console.log(name, qty, priority);
+
+    var row = document.createElement("tr");
+
+    var td1 = document.createElement("td");
+    td1.textContent = name;
+
+    var td2 = document.createElement("td");
+    td2.textContent = qty;
+
+    var td3 = document.createElement("td");
+    td3.textContent = priority;
+
+    if (priority == "High") {
+      td3.style.backgroundColor = "red";
+      td3.style.color = "white";
+    } else if (priority == "Low") {
+      td3.style.backgroundColor = "blue";
+      td3.style.color = "white";
+    } else if (priority == "Medium") {
+      td3.style.backgroundColor = "grey";
+      td3.style.color = "white";
+    } else if (priority == "") {
+      td3.style.backgroundColor = "cyan";
+      td3.style.color = "white";
+    }
+    // var td4 = document.createElement("td");
+    // td4.innerText = "delete";
+    // td4.addEventListener("click", deleteItem);
+
+    var td4 = document.createElement("button");
+    td4.innerText = "delete";
+    td4.style.padding = "12px 50px";
+    td4.style.backgroundColor = "orange";
+    td4.style.borderRadius = "5px";
+    td4.addEventListener("click", deleteItem);
+
+    row.append(td1, td2, td3, td4);
+    // var tbody = document.querySelector("tbody");
+    var tbody = document.getElementById("niku");
+    tbody.append(row);
+  }
+
+  function deleteItem(even) {
+    console.log(even.target);
+    even.target.parentNode.remove();
+  }
+</script>
